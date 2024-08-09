@@ -17,48 +17,8 @@ class Model : public IResource
 {
 private:
 
-	// Struct for easier vertex index retrieval
-	class AttribIndices
-	{
-	public:
-
-		// Set all indices to 0
-		AttribIndices() = default;
-
-		// Get position, texture coords and normal buffers
-		AttribIndices(std::vector<LibMath::Vector3>*, std::vector<LibMath::Vector2>*, std::vector<LibMath::Vector3>*);
-
-		// Copy another object
-		AttribIndices(const AttribIndices& other);
-
-		// Get attributes from a string within a face
-		void GetVertexAttribs(const std::string& vertex);
-
-		// Add a vertex to a VBO from retrieved indices
-		void AddVertex(std::vector<Vertex>& vbo);
-
-		// Get index
-		int& operator[](int index);
-
-		// Get index
-		int operator[](int index) const;
-
-		// Check if all indices are the same as another object
-		bool operator==(const AttribIndices& rhs) const;
-
-
-		// Vertex attribute vectors
-
-		std::vector<LibMath::Vector3>* m_positionVec = nullptr;
-		std::vector<LibMath::Vector3>* m_normalVec = nullptr;
-		std::vector<LibMath::Vector2>* m_textureVec = nullptr;
-
-
-		// Vertex attribute indices
-		int	m_position = 0;
-		int	m_textureUV = 0;
-		int	m_normal = 0;
-	};
+	class MetaData;
+	class WavefrontImporter;
 
 public:
 
@@ -69,12 +29,7 @@ public:
 	Model(const std::string& path);
 
 	// Delete buffers and destroy objects
-	~Model(void) override
-	{
-		m_ebo.Delete();
-		m_vbo.Delete();
-		m_vao.Delete();
-	}
+	~Model(void) override;
 
 	// Create VBO, EBO and VAO from stored data
 	void			CreateVAO();
@@ -99,7 +54,7 @@ public:
 
 private:
 
-	// Open and read .obj file
-	void ReadWavefrontFile(std::ifstream& objFile);
+	// Read from a wavefront OBJ file
+	bool			ImportWavefront(const std::filesystem::path& path);
 
 };
