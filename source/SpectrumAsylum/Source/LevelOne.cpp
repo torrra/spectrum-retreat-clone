@@ -85,6 +85,11 @@ void InitLevelOne(Game& game)
 	Graph<SceneNode>&	gameObjects = game.m_currentLevel.m_scene;
 	BVHierarchy&		colliders = game.m_currentLevel.m_colliders;
 
+	game.m_sceneFile.open("scenes/levelOne.level", std::ios::out | std::ios::binary);
+
+	if (!game.m_sceneFile)
+		__debugbreak();
+
 	// Init sound engine
 	InitSound(game);
 
@@ -133,6 +138,8 @@ void InitLevelOne(Game& game)
 
 	spot->SetCutoff(cos(LibMath::Degree(7.5f)), cos(LibMath::Degree(17.5f)));
 
+	game.m_sceneFile.close();
+
 }
 
 void InitColliders(BVHierarchy& colliders)
@@ -147,7 +154,7 @@ void InitColliders(BVHierarchy& colliders)
 	colliders.AddCollider<BoxBV>("world", std::string("second level"), LibMath::Vector3{ 0.f, 5.9f, 0.f }, LibMath::Vector3{ 100.f, 3.5f, 100.f });
 
 	// Starting area on ground level, positive x z coordinates
-	colliders.AddCollider<BoxBV>("ground level", std::string("starting area"), LibMath::Vector3{ 25.f, 1.5f, 25.f }, LibMath::Vector3{ 80.f, 1.5f, 80.f });
+	colliders.AddCollider<BoxBV>("ground level", std::string("start"), LibMath::Vector3{ 25.f, 1.5f, 25.f }, LibMath::Vector3{ 80.f, 1.5f, 80.f });
 
 	// Area two on ground level, negative x and positive z
 	colliders.AddCollider<BoxBV>("ground level", std::string("area2"), LibMath::Vector3{ -25.f, -0.3f, 25.f }, LibMath::Vector3{ 50.f, 10.f, 60.f });
@@ -158,7 +165,7 @@ void InitColliders(BVHierarchy& colliders)
 	// Area four on ground level, positve x and negative z
 	colliders.AddCollider<BoxBV>("ground level", std::string("area4"), LibMath::Vector3{ 25.f, -0.3f, -25.f }, LibMath::Vector3{ 35.f, 10.f, 35.f });
 
-	// Area one on second level (top of the stairs), same rules as ground level starting area
+	// Area one on second level (top of the stairs), same rules as ground level start
 	colliders.AddCollider<BoxBV>("second level", std::string("areasec1"), LibMath::Vector3{ 25.f, 5.9f, 25.f }, LibMath::Vector3{ 35.f, 10.f, 35.f });
 
 	// Area two on second level (top of the stairs), same rules as ground level area 2
@@ -284,59 +291,59 @@ void InitStartingAreaWalls(Game& game)
 	Material*		white = assets.Get<Material>("white");
 	Material*		lightGray = assets.Get<Material>("light gray");
 
-	const char*		areaKey = "starting area";
+	const char*		areaKey = "start";
 
 	// Wall scales
 	const LibMath::Vector3		scale{ 1.f,  3.f, 5.f };
 	const LibMath::Vector3		scaleR{ 5.f,  3.f, 1.f };
 
 	// Create walls with holes
-	game.CreateWallWithHole("wall10", wallModel2Hole, { 35.f,  2.7f, 20.0f }, scale, lightGray, areaKey);
-	game.CreateWallWithHole("wall10a", wallModelHole, { 30.f,  2.7f, 15.0f }, scaleR, lightGray, areaKey);
-	game.CreateWallWithHole("wall10b", wallModelHole, { -10.f,  2.7f, -10.0f }, { 5.f,  1.f,  1.0f }, lightGray, areaKey);
-	game.CreateWallWithHole("wall17", wallModelHole, { 5.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
+	game.CreateWallWithHole("wall10", wallModel2Hole, "wallV10Hole.obj", { 35.f,  2.7f, 20.0f }, scale, lightGray, areaKey);
+	game.CreateWallWithHole("wall10a", wallModelHole, "wallV10RHole.obj", { 30.f,  2.7f, 15.0f }, scaleR, lightGray, areaKey);
+	game.CreateWallWithHole("wall10b", wallModelHole, "wallV10RHole.obj", { -10.f,  2.7f, -10.0f }, { 5.f,  1.f,  1.0f }, lightGray, areaKey);
+	game.CreateWallWithHole("wall17", wallModelHole, "wallV10RHole.obj", { 5.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
 
 	// Place 'a few' more walls
-	game.CreateWall("wall5", wallModel, { 45.f,  2.7f, 40.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall5b", wallModel, { 37.f,  2.7f, 40.f }, { 3.f, 3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall6",  wallModel2, { 24.8f, 2.7f, 45.f },   scale, lightGray, areaKey);
-	game.CreateWall("wall6b", wallModel2, { 24.8f, 2.7f, 35.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall6c", wallModel2, { 24.8f, 2.7f, 25.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall6d", wallModel2, { 24.8f, 2.7f, 15.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall8", wallModel2, { 35.f,  2.7f, 35.1f }, { 1.f,  3.f,  5.f }, lightGray, areaKey);
+	game.CreateWall("wall5", wallModel, "wallV10R.obj", { 45.f,  2.7f, 40.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall5b", wallModel, "wallV10R.obj", { 37.f,  2.7f, 40.f }, { 3.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall6", wallModel2, "wallV10.obj", { 24.8f, 2.7f, 45.f },   scale, lightGray, areaKey);
+	game.CreateWall("wall6b", wallModel2, "wallV10.obj", { 24.8f, 2.7f, 35.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall6c", wallModel2, "wallV10.obj", { 24.8f, 2.7f, 25.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall6d", wallModel2, "wallV10.obj", { 24.8f, 2.7f, 15.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall8", wallModel2, "wallV10.obj", { 35.f,  2.7f, 35.1f }, { 1.f,  3.f,  5.f }, lightGray, areaKey);
 
-	game.CreateWall("wall2", wallModel, { 45.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall2a", wallModel, { 35.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall2b", wallModel,  { 25.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall2c", wallModel, { 15.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall2", wallModel, "wallV10R.obj", { 45.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall2a", wallModel, "wallV10R.obj", { 35.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall2b", wallModel, "wallV10R.obj",  { 25.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall2c", wallModel, "wallV10R.obj", { 15.f, 2.7f, 50.f }, scaleR, lightGray, areaKey);
 
-	game.CreateWall("wall4", wallModel2, { 50.f, 2.7f, 45.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4b", wallModel2, { 50.f, 2.7f, 35.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4c", wallModel2, { 50.f, 2.7f, 25.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4d", wallModel2, { 50.f, 2.7f, 15.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4e", wallModel2, { 50.f, 2.7f,  5.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4f", wallModel2, { 50.f, 2.7f,  5.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4", wallModel2, "wallV10.obj", { 50.f, 2.7f, 45.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4b", wallModel2, "wallV10.obj", { 50.f, 2.7f, 35.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4c", wallModel2, "wallV10.obj", { 50.f, 2.7f, 25.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4d", wallModel2, "wallV10.obj", { 50.f, 2.7f, 15.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4e", wallModel2, "wallV10.obj", { 50.f, 2.7f,  5.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4f", wallModel2, "wallV10.obj", { 50.f, 2.7f,  5.f }, scale, lightGray, areaKey);
 
-	game.CreateWall("wall12", wallModel2, { 35.f,  2.7f, 10.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall12b", wallModel2, { 35.f,  2.7f, 0.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall12", wallModel2, "wallV10.obj", { 35.f,  2.7f, 10.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall12b", wallModel2, "wallV10.obj", { 35.f,  2.7f, 0.f }, scale, lightGray, areaKey);
 
-	game.CreateWall("wall14", wallModel2, { 24.8f, 2.7f, 5.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall14", wallModel2, "wallV10.obj", { 24.8f, 2.7f, 5.f }, scale, lightGray, areaKey);
 
-	game.CreateWall("wall16", wallModel, { 20.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall16b", wallModel, { 10.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall16c", wallModel, { 0.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall16", wallModel, "wallV10R.obj", { 20.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall16b", wallModel, "wallV10R.obj", { 10.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall16c", wallModel, "wallV10R.obj", { 0.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
 
-	game.CreateWall("wall28", wallModel2, { 10.1f, 2.7f, 4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall28", wallModel2, "wallV10.obj", { 10.1f, 2.7f, 4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall45", wallModel, { 20.f, 2.7f, 39.5f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall46", wallModel, { 7.4f, 2.7f, 50.f }, { 2.6f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall45", wallModel, "wallV10R.obj", { 20.f, 2.7f, 39.5f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall46", wallModel, "wallV10R.obj", { 7.4f, 2.7f, 50.f }, { 2.6f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall67", wallModel2, { 42.5f, 2.7f, 67.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
-	game.CreateWall("wall68", wallModel, { 4.f, 2.7f, 50.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall67", wallModel2, "wallV10.obj", { 42.5f, 2.7f, 67.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
+	game.CreateWall("wall68", wallModel, "wallV10R.obj", { 4.f, 2.7f, 50.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall70", wallModel, { 10.f, 2.7f, 82.f }, { 35.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall70", wallModel, "wallV10R.obj", { 10.f, 2.7f, 82.f }, { 35.f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall72", wallModel, { 8.5f, 2.7f, 72.f }, { 24.5f, 3.f, 1.f }, lightGray, "world");
+	game.CreateWall("wall72", wallModel, "wallV10R.obj", { 8.5f, 2.7f, 72.f }, { 24.5f, 3.f, 1.f }, lightGray, "world");
 
 
 	// Place floors
@@ -355,11 +362,11 @@ void InitStartingAreaWalls(Game& game)
 
 	// Place upper level walls
 	areaKey = "second level";
-	game.CreateWall("wall99", wallModel, { 14.f, 8.9f, 30.5f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall100", wallModel2, { 4.5f, 8.9f, 17.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
-	game.CreateWall("wall101", wallModel, { 14.f, 8.9f, 3.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall102", wallModel2, { 24.f, 8.9f, 17.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
-	game.CreateWall("wall103", wallModel2, { 15.f, 8.7f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray, areaKey);
+	game.CreateWall("wall99", wallModel, "wallV10R.obj", { 14.f, 8.9f, 30.5f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall100", wallModel2, "wallV10.obj", { 4.5f, 8.9f, 17.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
+	game.CreateWall("wall101", wallModel, "wallV10R.obj", { 14.f, 8.9f, 3.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall102", wallModel2, "wallV10.obj", { 24.f, 8.9f, 17.f }, { 1.f, 3.f, 15.f }, lightGray, areaKey);
+	game.CreateWall("wall103", wallModel2, "wallV10.obj", { 15.f, 8.7f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray, areaKey);
 }
 
 
@@ -387,71 +394,71 @@ void InitAreaTwoWalls(Game& game)
 	const LibMath::Vector3 scaleR{ 5.f,  3.f, 1.f };
 
 	// Place walls with holes
-	game.CreateWallWithHole("wall17b", wallModelHole, { -5.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
-	game.CreateWallWithHole("wall81", wallModel2Hole, { -25.5f,  2.7f, 13.4f }, { 1.f, 3.f,  2.f }, lightGray, areaKey);
-	game.CreateWallWithHole("wall82", wallModelHole, { 20.f,  2.7f, -24.9f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
-	game.CreateWallWithHole("wall74", wallModelHole, { -34.f, 2.7f, 5.f }, scaleR, lightGray, areaKey);
+	game.CreateWallWithHole("wall17b", wallModelHole, "wallV10RHole.obj", { -5.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
+	game.CreateWallWithHole("wall81", wallModel2Hole, "wallV10Hole.obj", { -25.5f,  2.7f, 13.4f }, { 1.f, 3.f,  2.f }, lightGray, areaKey);
+	game.CreateWallWithHole("wall82", wallModelHole, "wallV10RHole.obj", { 20.f,  2.7f, -24.9f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWallWithHole("wall74", wallModelHole, "wallV10RHole.obj", { -34.f, 2.7f, 5.f }, scaleR, lightGray, areaKey);
 
 
 	// Place 'a couple' other walls
-	game.CreateWall("wall16d", wallModel, { -10.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall17c", wallModel, { -15.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall16d", wallModel, "wallV10R.obj", { -10.f,  2.7f, 15.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall17c", wallModel, "wallV10R.obj", { -15.f,  2.7f, 5.f }, scaleR, lightGray, areaKey);
 
-	game.CreateWall("wall23", wallModel2, { -15.2f, 2.7f,  4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall24", wallModel2, { -24.1f, 2.7f,  0.f }, { 1.f,  3.f, 5.1f }, lightGray, areaKey);
-	game.CreateWall("wall25", wallModel2, { -15.2f, 2.7f,  12.5f }, { 1.f,  3.f, 7.5f }, lightGray, areaKey);
-
-
-	game.CreateWall("wall47", wallModel, { -0.3f, 2.7f, 30.f }, { 15.2f, 3.f, 1.f }, lightGray, areaKey);
-
-	game.CreateWall("wall48", wallModel, { -5.3f, 2.7f, 40.f }, { 10.1f, 3.f, 1.f }, lightGray, areaKey);
-
-	game.CreateWall("wall50", wallModel2, { 14.8f, 2.7f, 22.7f }, { 1.f, 3.f, 7.2f }, lightGray);
-	game.CreateWall("wall51", wallModel2, { 4.8f, 2.7f, 45.f }, { 1.f, 3.f, 5.1f }, lightGray, areaKey);
-	game.CreateWall("wall52", wallModel2, { 4.5f, 2.7f, 23.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
-
-	game.CreateWall("wall53", wallModel2, { -15.6f, 2.7f, 55.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
-
-	game.CreateWall("wall54", wallModel2, { -5.4f, 2.7f, 45.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
-
-	game.CreateWall("wall55", wallModel2, { -25.4f, 2.7f, 6.4f }, { 1.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall56", wallModel2, { -25.4f, 2.7f, 23.f }, { 1.f, 3.f, 8.f }, lightGray, areaKey);
-	game.CreateWall("wall57", wallModel2, { -25.4f, 2.7f, 39.f }, { 1.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall58", wallModel2, { -25.4f, 2.7f, 49.f }, { 1.f, 3.f, 3.f }, lightGray, areaKey);
-	game.CreateWall("wall59", wallModel2, { -25.4f, 2.7f, 63.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
+	game.CreateWall("wall23", wallModel2, "wallV10.obj", { -15.2f, 2.7f,  4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall24", wallModel2, "wallV10.obj", { -24.1f, 2.7f,  0.f }, { 1.f,  3.f, 5.1f }, lightGray, areaKey);
+	game.CreateWall("wall25", wallModel2, "wallV10.obj", { -15.2f, 2.7f,  12.5f }, { 1.f,  3.f, 7.5f }, lightGray, areaKey);
 
 
-	game.CreateWall("wall59a", wallModel2, { 14.5f, -3.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
-	game.CreateWall("wall59b", wallModel2, { 4.5f, -3.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
-	game.CreateWall("wall59c", wallModel2, { 14.5f, -9.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
-	game.CreateWall("wall59d", wallModel2, { 4.5f, -9.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall47", wallModel, "wallV10R.obj", { -0.3f, 2.7f, 30.f }, { 15.2f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall59e", wallModel2, { 14.5f, -15.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
-	game.CreateWall("wall59f", wallModel2, { 4.5f, -15.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
-	game.CreateWall("wall59g", wallModel, { 9.5f, -3.3f, 30.f }, scaleR, lightGray);
-	game.CreateWall("wall59i", wallModel, { 9.5f, -9.3f, 30.f }, scaleR, lightGray);
-	game.CreateWall("wall59j", wallModel, { 9.5f, -9.3f, 16.f }, scaleR, lightGray);
-	game.CreateWall("wall59k", wallModel, { 9.5f, -15.3f, 30.f }, scaleR, lightGray);
-	game.CreateWall("wall59l", wallModel, { 9.5f, -15.3f, 16.f }, scaleR, lightGray);
+	game.CreateWall("wall48", wallModel, "wallV10R.obj", { -5.3f, 2.7f, 40.f }, { 10.1f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall60", wallModel2, { -32.4f, 2.7f, 48.f }, { 1.f, 3.f, 10.f }, lightGray, areaKey);
-	game.CreateWall("wall61", wallModel2, { -40.f, 2.7f, 44.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
-	game.CreateWall("wall62", wallModel2, { -47.f, 2.7f, 52.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
-	game.CreateWall("wall64", wallModel, { -40.f, 2.7f, 38.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall65", wallModel, { -40.f, 2.7f, 68.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall66", wallModel, { -40.f, 2.7f, 58.f }, { 7.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall50", wallModel2, "wallV10.obj", { 14.8f, 2.7f, 22.7f }, { 1.f, 3.f, 7.2f }, lightGray);
+	game.CreateWall("wall51", wallModel2, "wallV10.obj", { 4.8f, 2.7f, 45.f }, { 1.f, 3.f, 5.1f }, lightGray, areaKey);
+	game.CreateWall("wall52", wallModel2, "wallV10.obj", { 4.5f, 2.7f, 23.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
 
-	game.CreateWall("wall69", wallModel2, { -25.f, 2.7f, 75.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
+	game.CreateWall("wall53", wallModel2, "wallV10.obj", { -15.6f, 2.7f, 55.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
 
-	game.CreateWall("wall73", wallModel, { -10.7f, 2.7f, 62.f }, { 5.3f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall54", wallModel2, "wallV10.obj", { -5.4f, 2.7f, 45.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
 
-	game.CreateWall("wall75", wallModel, { -35.7f, 2.7f, 15.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall55", wallModel2, "wallV10.obj", { -25.4f, 2.7f, 6.4f }, { 1.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall56", wallModel2, "wallV10.obj", { -25.4f, 2.7f, 23.f }, { 1.f, 3.f, 8.f }, lightGray, areaKey);
+	game.CreateWall("wall57", wallModel2, "wallV10.obj", { -25.4f, 2.7f, 39.f }, { 1.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall58", wallModel2, "wallV10.obj", { -25.4f, 2.7f, 49.f }, { 1.f, 3.f, 3.f }, lightGray, areaKey);
+	game.CreateWall("wall59", wallModel2, "wallV10.obj", { -25.4f, 2.7f, 63.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
 
 
-	game.CreateWall("wall95", wallModel, { -30.5f, 2.7f, 28.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall96", wallModel2, { -34.5f, 2.7f, 33.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
-	game.CreateWall("wall97", wallModel, { -10.f, 2.7f, 50.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall98", wallModel2, { -15.6f, 2.7f, 44.4f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
+	game.CreateWall("wall59a", wallModel2, "wallV10.obj", { 14.5f, -3.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall59b", wallModel2, "wallV10.obj", { 4.5f, -3.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall59c", wallModel2, "wallV10.obj", { 14.5f, -9.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall59d", wallModel2, "wallV10.obj", { 4.5f, -9.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+
+	game.CreateWall("wall59e", wallModel2, "wallV10.obj", { 14.5f, -15.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall59f", wallModel2, "wallV10.obj", { 4.5f, -15.3f, 23.f }, { 1.f, 3.f, 7.5f }, lightGray);
+	game.CreateWall("wall59g", wallModel, "wallV10R.obj", { 9.5f, -3.3f, 30.f }, scaleR, lightGray);
+	game.CreateWall("wall59i", wallModel, "wallV10R.obj", { 9.5f, -9.3f, 30.f }, scaleR, lightGray);
+	game.CreateWall("wall59j", wallModel, "wallV10R.obj", { 9.5f, -9.3f, 16.f }, scaleR, lightGray);
+	game.CreateWall("wall59k", wallModel, "wallV10R.obj", { 9.5f, -15.3f, 30.f }, scaleR, lightGray);
+	game.CreateWall("wall59l", wallModel, "wallV10R.obj", { 9.5f, -15.3f, 16.f }, scaleR, lightGray);
+
+	game.CreateWall("wall60", wallModel2, "wallV10.obj", { -32.4f, 2.7f, 48.f }, { 1.f, 3.f, 10.f }, lightGray, areaKey);
+	game.CreateWall("wall61", wallModel2, "wallV10.obj", { -40.f, 2.7f, 44.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
+	game.CreateWall("wall62", wallModel2, "wallV10.obj", { -47.f, 2.7f, 52.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
+	game.CreateWall("wall64", wallModel, "wallV10R.obj", { -40.f, 2.7f, 38.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall65", wallModel, "wallV10R.obj", { -40.f, 2.7f, 68.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall66", wallModel, "wallV10R.obj", { -40.f, 2.7f, 58.f }, { 7.f, 3.f, 1.f }, lightGray, areaKey);
+
+	game.CreateWall("wall69", wallModel2, "wallV10.obj", { -25.f, 2.7f, 75.f }, { 1.f, 3.f, 7.f }, lightGray, areaKey);
+
+	game.CreateWall("wall73", wallModel, "wallV10R.obj", { -10.7f, 2.7f, 62.f }, { 5.3f, 3.f, 1.f }, lightGray, areaKey);
+
+	game.CreateWall("wall75", wallModel, "wallV10R.obj", { -35.7f, 2.7f, 15.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+
+
+	game.CreateWall("wall95", wallModel, "wallV10R.obj", { -30.5f, 2.7f, 28.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall96", wallModel2, "wallV10.obj", { -34.5f, 2.7f, 33.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
+	game.CreateWall("wall97", wallModel, "wallV10R.obj", { -10.f, 2.7f, 50.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall98", wallModel2, "wallV10.obj", { -15.6f, 2.7f, 44.4f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
 
 
 	// Create floors
@@ -492,15 +499,15 @@ void InitAreaThreeWalls(Game& game)
 	const LibMath::Vector3		scaleR{ 5.f,  3.f, 1.f };
 
 	// Create walls
-	game.CreateWall("wall18c", wallModel, { -10.f,  2.7f,-5.f }, scaleR, lightGray, areaKey);
-	game.CreateWall("wall18d", wallModel, { -20.f,  2.7f,-5.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall18c", wallModel, "wallV10R.obj", { -10.f,  2.7f,-5.f }, scaleR, lightGray, areaKey);
+	game.CreateWall("wall18d", wallModel, "wallV10R.obj", { -20.f,  2.7f,-5.f }, scaleR, lightGray, areaKey);
 
-	game.CreateWall("wall20", wallModel, { -1.f,  2.7f,-24.9f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall20", wallModel, "wallV10R.obj", { -1.f,  2.7f,-24.9f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall22", wallModel2, { -15.2f, 2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall22", wallModel2, "wallV10.obj", { -15.2f, 2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall76", wallModel, { -35.7f, 2.7f, -15.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall77", wallModel2, { -25.5f, 2.7f, -5.f }, { 1.f, 3.f, 10.f }, lightGray, areaKey);
+	game.CreateWall("wall76", wallModel, "wallV10R.obj", { -35.7f, 2.7f, -15.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall77", wallModel2, "wallV10.obj", { -25.5f, 2.7f, -5.f }, { 1.f, 3.f, 10.f }, lightGray, areaKey);
 
 
 	// Place floor pieces
@@ -529,45 +536,45 @@ void InitAreaFourWalls(Game& game)
 
 
 	// Place walls
-	game.CreateWall("wall1", wallModel, { 0.f, 2.7f,-45.f }, { 50.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall1", wallModel, "wallV10R.obj", { 0.f, 2.7f,-45.f }, { 50.f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall3", wallModel2, { -55.f, 2.7f,  10.f }, { 1.f,  3.f, 60.f }, lightGray, "world");
+	game.CreateWall("wall3", wallModel2, "wallV10.obj", { -55.f, 2.7f,  10.f }, { 1.f,  3.f, 60.f }, lightGray, "world");
 
-	game.CreateWall("wall4g", wallModel2, { 50.f, 2.7f, -5.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall4h", wallModel2, { 50.f, 2.7f,-15.f }, scale, lightGray, areaKey);
-
-
-	game.CreateWall("wall9", wallModel, { 36.9f, 2.7f, -5.2f }, { 2.f,  3.f,  1.f }, lightGray, areaKey);
-
-	game.CreateWall("wall11", wallModel, { 47.9f, 2.7f, -5.2f }, { 2.f,  3.f,  1.f }, lightGray, areaKey);
-
-	game.CreateWall("wall13", wallModel, { 45.f,  2.7f,-15.f }, { 5.f,3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall13b", wallModel, { 35.f,  2.7f,-15.f }, { 5.f,3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall13c", wallModel, { 28.f,  2.7f,-15.f }, { 2.5f,3.f,  1.f }, lightGray, areaKey);
-
-	game.CreateWall("wall15", wallModel2, { 24.8f, 2.7f,-10.f }, { 1.f,  3.f,  5.f }, lightGray, areaKey);
+	game.CreateWall("wall4g", wallModel2, "wallV10.obj", { 50.f, 2.7f, -5.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall4h", wallModel2, "wallV10.obj", { 50.f, 2.7f,-15.f }, scale, lightGray, areaKey);
 
 
-	game.CreateWall("wall17d", wallModel, { -25.f,  2.7f, 5.f }, { 5.f, 3.f,  1.f }, lightGray, "world");
-	game.CreateWall("wall18", wallModel, { 10.f,  2.7f,-5.f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall18b", wallModel, { 0.f,  2.7f,-5.f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall9", wallModel, "wallV10R.obj", { 36.9f, 2.7f, -5.2f }, { 2.f,  3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall19", wallModel, { 10.f,  2.7f,-24.9f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall11", wallModel, "wallV10R.obj", { 47.9f, 2.7f, -5.2f }, { 2.f,  3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall21", wallModel, { 11.f,  2.7f,-45.f }, { 14.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall13", wallModel, "wallV10R.obj", { 45.f,  2.7f,-15.f }, { 5.f,3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall13b", wallModel, "wallV10R.obj", { 35.f,  2.7f,-15.f }, { 5.f,3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall13c", wallModel, "wallV10R.obj", { 28.f,  2.7f,-15.f }, { 2.5f,3.f,  1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall26", wallModel2, { 24.8f, 2.7f,-20.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall26b", wallModel2, { 24.8f, 2.7f,-30.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall26c", wallModel2, { 24.8f, 2.7f,-40.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall27", wallModel2, { 0.f,  2.7f,-10.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall27b", wallModel2, { 0.f,  2.7f,-20.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall27c", wallModel2, { 0.f,  2.7f,-30.f }, scale, lightGray, areaKey);
-	game.CreateWall("wall27d", wallModel2, { 0.f,  2.7f,-40.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall15", wallModel2, "wallV10.obj", { 24.8f, 2.7f,-10.f }, { 1.f,  3.f,  5.f }, lightGray, areaKey);
 
-	game.CreateWall("wall29", wallModel2, { 10.1f, 2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall30", wallModel2, { 0.f,  2.7f, 4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall31", wallModel2, { 0.f,  2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
-	game.CreateWall("wall78", wallModel2, { -45.f, 2.7f, 0.f }, { 1.f, 3.f, 15.f }, lightGray, "world");
+
+	game.CreateWall("wall17d", wallModel, "wallV10R.obj", { -25.f,  2.7f, 5.f }, { 5.f, 3.f,  1.f }, lightGray, "world");
+	game.CreateWall("wall18", wallModel, "wallV10R.obj", { 10.f,  2.7f,-5.f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall18b", wallModel, "wallV10R.obj", { 0.f,  2.7f,-5.f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+
+	game.CreateWall("wall19", wallModel, "wallV10R.obj", { 10.f,  2.7f,-24.9f }, { 5.f, 3.f,  1.f }, lightGray, areaKey);
+
+	game.CreateWall("wall21", wallModel, "wallV10R.obj", { 11.f,  2.7f,-45.f }, { 14.f, 3.f,  1.f }, lightGray, areaKey);
+
+	game.CreateWall("wall26", wallModel2, "wallV10.obj", { 24.8f, 2.7f,-20.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall26b", wallModel2, "wallV10.obj", { 24.8f, 2.7f,-30.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall26c", wallModel2, "wallV10.obj", { 24.8f, 2.7f,-40.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall27", wallModel2, "wallV10.obj", { 0.f,  2.7f,-10.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall27b", wallModel2, "wallV10.obj", { 0.f,  2.7f,-20.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall27c", wallModel2, "wallV10.obj", { 0.f,  2.7f,-30.f }, scale, lightGray, areaKey);
+	game.CreateWall("wall27d", wallModel2, "wallV10.obj", { 0.f,  2.7f,-40.f }, scale, lightGray, areaKey);
+
+	game.CreateWall("wall29", wallModel2, "wallV10.obj", { 10.1f, 2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall30", wallModel2, "wallV10.obj", { 0.f,  2.7f, 4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall31", wallModel2, "wallV10.obj", { 0.f,  2.7f,-4.1f }, { 1.f,  3.f,  1.f }, lightGray, areaKey);
+	game.CreateWall("wall78", wallModel2, "wallV10.obj", { -45.f, 2.7f, 0.f }, { 1.f, 3.f, 15.f }, lightGray, "world");
 
 
 	// PLace floors
@@ -600,7 +607,7 @@ void InitDoors(Game& game)
 	Color		orangeColor = { ORANGE, 1.f };
 
 	// Place doors
-	game.CreateDoor("door1", { 35.f, 2.7f, 27.55f }, { 0.1f, 3.f, 2.5f }, redColor, doorModelR, "starting area");
+	game.CreateDoor("door1", { 35.f, 2.7f, 27.55f }, { 0.1f, 3.f, 2.5f }, redColor, doorModelR, "start");
 	game.CreateDoor("door2", { 42.4f, 2.7f, -5.2f }, { 3.5f, 3.f, 0.1f }, whiteColor, doorModel, "area4");
 
 	game.CreateDoor("door7", { 2.8f, 2.7f, -24.9f }, { 2.2f, 3.f, 0.1f }, redColor, doorModel, "area4");
@@ -620,7 +627,7 @@ void InitDoors(Game& game)
 	game.CreateDoor("door16", { -13.f, 2.7f, 77.f }, { 0.1f, 3.f, 5.f }, whiteColor, doorModelR, "area2");
 
 	game.CreateDoor("door17", { 30.f, -3.5f, 14.f }, { 5.f, 3.f, 0.1f }, orangeColor, doorModel, "underground");
-	game.CreateDoor("door18", { 15.f, 2.7f, 45.f }, { 0.1f, 3.f, 5.1f }, orangeColor, doorModel, "starting area");
+	game.CreateDoor("door18", { 15.f, 2.7f, 45.f }, { 0.1f, 3.f, 5.1f }, orangeColor, doorModel, "start");
 
 	// Create floor doors
 	game.CreateDoor("doorF1", { 9.8f, -6.3f, -10.f }, { 5.f, 1.f, 7.f }, blueColor, doorModelF, "underground");
@@ -656,38 +663,38 @@ void InitUnderground(Game& game)
 	const char*		areaKey = "underground";
 
 	// Place walls
-	game.CreateWall("wall32", wallModel, { -19.7f, -3.5f, -5.f }, { 4.5f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall33", wallModel2, { -24.1f, -3.5f, 0.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
-	game.CreateWall("wall34", wallModel, { -19.7f, -3.5f, 5.f }, { 4.5f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall35", wallModel2, { -15.3f, -3.5f, -16.f }, { 1.f, 3.f, 11.f }, lightGray, areaKey);
-	game.CreateWall("wall36", wallModel2, { -15.3f, -3.5f, 9.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
-	game.CreateWall("wall37", wallModel2, { -5.1f, -3.5f, -15.f }, { 1.f, 3.f, 20.f }, lightGray, areaKey);
-	game.CreateWall("wall38", wallModel, { -15.2f, -3.5f, -35.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall39", wallModel, { -20.2f, -3.5f, -27.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall40", wallModel, { -0.2f, -3.5f, 15.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall42", wallModel2, { -25.1f, -3.5f, -31.f }, { 1.f, 3.f, 3.9f }, lightGray, areaKey);
+	game.CreateWall("wall32", wallModel, "wallV10R.obj", { -19.7f, -3.5f, -5.f }, { 4.5f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall33", wallModel2, "wallV10.obj", { -24.1f, -3.5f, 0.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
+	game.CreateWall("wall34", wallModel, "wallV10R.obj", { -19.7f, -3.5f, 5.f }, { 4.5f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall35", wallModel2, "wallV10.obj", { -15.3f, -3.5f, -16.f }, { 1.f, 3.f, 11.f }, lightGray, areaKey);
+	game.CreateWall("wall36", wallModel2, "wallV10.obj", { -15.3f, -3.5f, 9.f }, { 1.f, 3.f, 6.f }, lightGray, areaKey);
+	game.CreateWall("wall37", wallModel2, "wallV10.obj", { -5.1f, -3.5f, -15.f }, { 1.f, 3.f, 20.f }, lightGray, areaKey);
+	game.CreateWall("wall38", wallModel, "wallV10R.obj", { -15.2f, -3.5f, -35.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall39", wallModel, "wallV10R.obj", { -20.2f, -3.5f, -27.f }, { 5.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall40", wallModel, "wallV10R.obj", { -0.2f, -3.5f, 15.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall42", wallModel2, "wallV10.obj", { -25.1f, -3.5f, -31.f }, { 1.f, 3.f, 3.9f }, lightGray, areaKey);
 
-	game.CreateWall("wall83", wallModel, { 0.f, -3.5f, 5.2f }, { 5.f, 3.f, 1.f }, lightGray, "world");
+	game.CreateWall("wall83", wallModel, "wallV10R.obj", { 0.f, -3.5f, 5.2f }, { 5.f, 3.f, 1.f }, lightGray, "world");
 
-	game.CreateWall("wall86", wallModel, { 25.f, -3.5f, -12.8f }, { 3.3f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall87", wallModel, { 25.f, -3.5f, -1.5f }, { 3.3f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall88", wallModel2, { 28.5f, -3.5f, -7.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
-	game.CreateWall("wall89", wallModel2, { 21.5f, -3.5f, -7.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
+	game.CreateWall("wall86", wallModel, "wallV10R.obj", { 25.f, -3.5f, -12.8f }, { 3.3f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall87", wallModel, "wallV10R.obj", { 25.f, -3.5f, -1.5f }, { 3.3f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall88", wallModel2, "wallV10.obj", { 28.5f, -3.5f, -7.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
+	game.CreateWall("wall89", wallModel2, "wallV10.obj", { 21.5f, -3.5f, -7.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
 
 
-	game.CreateWall("wall104", wallModel, { 23.f, -3.5f, -35.f }, { 30.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall105", wallModel2, { 50.f, -3.5f, -2.f }, { 1.f, 3.f, 35.f }, lightGray, areaKey);
+	game.CreateWall("wall104", wallModel, "wallV10R.obj", { 23.f, -3.5f, -35.f }, { 30.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall105", wallModel2, "wallV10.obj", { 50.f, -3.5f, -2.f }, { 1.f, 3.f, 35.f }, lightGray, areaKey);
 
-	game.CreateWall("wall106", wallModel, { 15.f, -3.5f, 6.f }, { 3.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall106", wallModel, "wallV10R.obj", { 15.f, -3.5f, 6.f }, { 3.f, 3.f, 1.f }, lightGray, areaKey);
 
-	game.CreateWall("wall90", wallModel, { 45.f, -3.5f, 33.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall91", wallModel, { 40.f, -3.5f, 43.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
-	game.CreateWall("wall92", wallModel2, { 35.f, -3.5f, 23.f }, { 1.f, 3.f, 10.5f }, lightGray, areaKey);
-	game.CreateWall("wall93", wallModel2, { 25.5f, -3.5f, 28.5f }, { 1.f, 3.f, 16.f }, lightGray, areaKey);
-	game.CreateWall("wall94", wallModel2, { 54.f, -3.5f, 38.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
+	game.CreateWall("wall90", wallModel, "wallV10R.obj", { 45.f, -3.5f, 33.f }, { 10.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall91", wallModel, "wallV10R.obj", { 40.f, -3.5f, 43.f }, { 15.f, 3.f, 1.f }, lightGray, areaKey);
+	game.CreateWall("wall92", wallModel2, "wallV10.obj", { 35.f, -3.5f, 23.f }, { 1.f, 3.f, 10.5f }, lightGray, areaKey);
+	game.CreateWall("wall93", wallModel2, "wallV10.obj", { 25.5f, -3.5f, 28.5f }, { 1.f, 3.f, 16.f }, lightGray, areaKey);
+	game.CreateWall("wall94", wallModel2, "wallV10.obj", { 54.f, -3.5f, 38.f }, { 1.f, 3.f, 5.5f }, lightGray, areaKey);
 
 	// Place wall with a hole
-	game.CreateWallWithHole("wall85", wallModel2Hole, { 12.5f, -3.5f, 10.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
+	game.CreateWallWithHole("wall85", wallModel2Hole, "wallV10Hole.obj", { 12.5f, -3.5f, 10.f }, { 1.f, 3.f, 5.f }, lightGray, areaKey);
 
 	// Place floor tiles
 	game.CreateFloor("floor11", floorModel, { -10.2f, -6.3f, -7.f }, { 5.f, 1.f, 22.f }, white, areaKey);
