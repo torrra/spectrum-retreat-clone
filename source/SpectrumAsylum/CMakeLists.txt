@@ -22,6 +22,12 @@ file(GLOB_RECURSE ASSETS
     ${CMAKE_CURRENT_BINARY_DIR}/assets/*
 )
 
+file(GLOB_RECURSE LEVELS
+    ${CMAKE_CURRENT_BINARY_DIR}/scenes/*.level
+)
+
+source_group("Levels" FILES ${LEVELS})
+
 # Generate Visual Studio filters for assets & shaders
 source_group("Assets" FILES ${ASSETS})
 source_group("Shaders" FILES ${SHADERS})
@@ -43,7 +49,7 @@ source_group("Header" FILES ${TARGET_HEADER_FILES})
 source_group("Source" FILES ${TARGET_SOURCE_FILES})
 
 # Create variable for all project files
-set(TARGET_FILES ${TARGET_HEADER_FILES} ${TARGET_SOURCE_FILES} ${SHADERS})
+set(TARGET_FILES ${TARGET_HEADER_FILES} ${TARGET_SOURCE_FILES} ${SHADERS} ${LEVELS})
 
 # Create executable file
 add_executable(${TARGET_NAME})
@@ -60,9 +66,9 @@ target_include_directories(${TARGET_NAME}
 # Get all dependencies for game
 target_link_libraries(${TARGET_NAME}
 	PRIVATE ${LIBMATH_LIBRARY}
-	PRIVATE ${PHYSICS_LIBRARY}	
+	PRIVATE ${PHYSICS_LIBRARY}
 	PRIVATE ${DEPENDENCIES_LIBRARY}
 	PRIVATE ${RESOURCE_LIBRARY}
 	PRIVATE ${LOWRENDERER_LIBRARY}
-	PRIVATE ${DATASTRUCTURES_LIBRARY}	
+	PRIVATE ${DATASTRUCTURES_LIBRARY}
 )
