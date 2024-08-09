@@ -59,8 +59,8 @@ void PlaceLights(Game& game)
 
 
 	// Light volumes next to spawnpont
-	LightBox*		lightBox1 = colliders.AddCollider<LightBox>("starting area", std::string("lightBox1"));
-	LightBox*		lightBox2 = colliders.AddCollider<LightBox>("starting area", std::string("lightBox2"));
+	LightBox*		lightBox1 = colliders.AddCollider<LightBox>("start", std::string("lightBox1"));
+	LightBox*		lightBox2 = colliders.AddCollider<LightBox>("start", std::string("lightBox2"));
 
 	// Light volumes in the back (next to hole)
 	LightBox*		corridorBox1 = colliders.AddCollider<LightBox>("world", std::string("corridorBox1"));
@@ -72,7 +72,7 @@ void PlaceLights(Game& game)
 
 	// Post-teleportation light volumes in the back
 	LightBox*		backroomsBox = colliders.AddCollider<LightBox>("ground level", std::string("backrooms box"));
-	LightBox*		bottomStairsBox = colliders.AddCollider<LightBox>("starting area", std::string("bottom stairs box"));
+	LightBox*		bottomStairsBox = colliders.AddCollider<LightBox>("start", std::string("bottom stairs box"));
 	LightBox*		backCorridor = colliders.AddCollider<LightBox>("ground level", std::string("back corridor box"));
 	LightBox*		backBox = colliders.AddCollider<LightBox>("ground level", std::string("back level box"));
 
