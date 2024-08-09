@@ -1,0 +1,46 @@
+# Folders
+*[Bb]uild/*
+.vs/
+out/
+application/
+/*/build/
+/**/nppBackup/
+
+# Do not ignore assets within Application folder
+!build/SpectrumAsylum/
+build/SpectrumAsylum/*
+!build/SpectrumAsylum/assets/
+!build/SpectrumAsylum/shaders/
+!build/SpectrumAsylum/assets/*/*.obj
+!build/SpectrumAsylum/*.dll
+
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
