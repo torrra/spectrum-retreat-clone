@@ -5,7 +5,7 @@
 
 // Engine resources & low renderer
 #include "Application.h"
-#include "Timer.hpp" 
+#include "Timer.hpp"
 #include "Mesh.h"
 
 // Game
@@ -40,26 +40,26 @@ public:
 
 	// Create functions
 	// Create wall mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
-	Mesh*	CreateWall(const std::string& key, Model* model, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
-	
+	Mesh*	CreateWall(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
+
 	// Create wall with a hole mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
-	Mesh*	CreateWallWithHole(const std::string& key, Model* model, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
-	
+	Mesh*	CreateWallWithHole(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
+
 	// Create floor mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
 	Mesh*	CreateFloor(const std::string& key, Model* model, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
-	
+
 	// Create all light for the level with a key, a position, a material for the mesh, material for the edge*/
 	PointLight*	CreateLevelLight(const std::string& key, const LibMath::Vector3& pos, Material* meshMat, Material* edgeMat);
-	
+
 	// Create color block with a key, a position, a scale, a color, a model and an area for the collider by default to world
 	ColorBlock*	CreateColorBlock(const std::string& key, const LibMath::Vector3& pos, const Color& color, Model* model, const char* areaKey = "world");
-	
+
 	// Create a mesh of a cube holder with a key, a model, a position and an area for the collider by default to world
 	Mesh*	CreateCubeHolder(const std::string& key, Model* model, const LibMath::Vector3& pos, const char* areaKey = "world");
-	
+
 	// Create a door with a key, a position, a scale, a color, and an area for the collider by default to world
 	Door*	CreateDoor(const std::string& key, const LibMath::Vector3& pos, const LibMath::Vector3& scale, const Color& color, Model* model, const char* areaKey = "world");
-	
+
 	// Create a teleporter with a key, a position, an other position, and an area for the collider by default world
 	PhysicsLib::Teleporter*	CreateTeleporters(const std::string& key, const LibMath::Vector3& pos, const LibMath::Vector3& otherPos, const char* areaKey = "world");
 
@@ -112,8 +112,10 @@ public:
 		GLuint				m_background	= 0;
 
 	}; // !Class Menu
-	
+
 	// Variables
+
+	std::ofstream			m_sceneFile;
 	irrklang::ISoundEngine*	m_soundEngine	= nullptr;
 	Level					m_currentLevel;
 	Application				m_window;
