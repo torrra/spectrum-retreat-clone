@@ -1,0 +1,420 @@
+[hole]
+key: wall10 model: wallV10Hole.obj position: {35,2.7,20} scale: {1,3,5} area: start hole_collider: wall10_hole
+
+[hole]
+key: wall10a model: wallV10RHole.obj position: {30,2.7,15} scale: {5,3,1} area: start hole_collider: wall10a_hole
+
+[hole]
+key: wall10b model: wallV10RHole.obj position: {-10,2.7,-10} scale: {5,1,1} area: start hole_collider: wall10b_hole
+
+[hole]
+key: wall17 model: wallV10RHole.obj position: {5,2.7,5} scale: {5,3,1} area: start hole_collider: wall17_hole
+
+[wall]
+key: wall5 model: wallV10R.obj position: {45,2.7,40} scale: {5,3,1} area: start
+
+[wall]
+key: wall5b model: wallV10R.obj position: {37,2.7,40} scale: {3,3,1} area: start
+
+[wall]
+key: wall6 model: wallV10.obj position: {24.8,2.7,45} scale: {1,3,5} area: start
+
+[wall]
+key: wall6b model: wallV10.obj position: {24.8,2.7,35} scale: {1,3,5} area: start
+
+[wall]
+key: wall6c model: wallV10.obj position: {24.8,2.7,25} scale: {1,3,5} area: start
+
+[wall]
+key: wall6d model: wallV10.obj position: {24.8,2.7,15} scale: {1,3,5} area: start
+
+[wall]
+key: wall8 model: wallV10.obj position: {35,2.7,35.1} scale: {1,3,5} area: start
+
+[wall]
+key: wall2 model: wallV10R.obj position: {45,2.7,50} scale: {5,3,1} area: start
+
+[wall]
+key: wall2a model: wallV10R.obj position: {35,2.7,50} scale: {5,3,1} area: start
+
+[wall]
+key: wall2b model: wallV10R.obj position: {25,2.7,50} scale: {5,3,1} area: start
+
+[wall]
+key: wall2c model: wallV10R.obj position: {15,2.7,50} scale: {5,3,1} area: start
+
+[wall]
+key: wall4 model: wallV10.obj position: {50,2.7,45} scale: {1,3,5} area: start
+
+[wall]
+key: wall4b model: wallV10.obj position: {50,2.7,35} scale: {1,3,5} area: start
+
+[wall]
+key: wall4c model: wallV10.obj position: {50,2.7,25} scale: {1,3,5} area: start
+
+[wall]
+key: wall4d model: wallV10.obj position: {50,2.7,15} scale: {1,3,5} area: start
+
+[wall]
+key: wall4e model: wallV10.obj position: {50,2.7,5} scale: {1,3,5} area: start
+
+[wall]
+key: wall4f model: wallV10.obj position: {50,2.7,5} scale: {1,3,5} area: start
+
+[wall]
+key: wall12 model: wallV10.obj position: {35,2.7,10} scale: {1,3,5} area: start
+
+[wall]
+key: wall12b model: wallV10.obj position: {35,2.7,0} scale: {1,3,5} area: start
+
+[wall]
+key: wall14 model: wallV10.obj position: {24.8,2.7,5} scale: {1,3,5} area: start
+
+[wall]
+key: wall16 model: wallV10R.obj position: {20,2.7,15} scale: {5,3,1} area: start
+
+[wall]
+key: wall16b model: wallV10R.obj position: {10,2.7,15} scale: {5,3,1} area: start
+
+[wall]
+key: wall16c model: wallV10R.obj position: {0,2.7,15} scale: {5,3,1} area: start
+
+[wall]
+key: wall28 model: wallV10.obj position: {10.1,2.7,4.1} scale: {1,3,1} area: start
+
+[wall]
+key: wall45 model: wallV10R.obj position: {20,2.7,39.5} scale: {5,3,1} area: start
+
+[wall]
+key: wall46 model: wallV10R.obj position: {7.4,2.7,50} scale: {2.6,3,1} area: start
+
+[wall]
+key: wall67 model: wallV10.obj position: {42.5,2.7,67} scale: {1,3,15} area: start
+
+[wall]
+key: wall68 model: wallV10R.obj position: {4,2.7,50} scale: {10,3,1} area: start
+
+[wall]
+key: wall70 model: wallV10R.obj position: {10,2.7,82} scale: {35,3,1} area: start
+
+[wall]
+key: wall72 model: wallV10R.obj position: {8.5,2.7,72} scale: {24.5,3,1} area: world
+
+[wall]
+key: wall99 model: wallV10R.obj position: {14,8.9,30.5} scale: {10,3,1} area: second level
+
+[wall]
+key: wall100 model: wallV10.obj position: {4.5,8.9,17} scale: {1,3,15} area: second level
+
+[wall]
+key: wall101 model: wallV10R.obj position: {14,8.9,3} scale: {10,3,1} area: second level
+
+[wall]
+key: wall102 model: wallV10.obj position: {24,8.9,17} scale: {1,3,15} area: second level
+
+[wall]
+key: wall103 model: wallV10.obj position: {15,8.7,23} scale: {1,3,7.5} area: second level
+
+[hole]
+key: wall17b model: wallV10RHole.obj position: {-5,2.7,5} scale: {5,3,1} area: area2 hole_collider: wall17b_hole
+
+[hole]
+key: wall81 model: wallV10Hole.obj position: {-25.5,2.7,13.4} scale: {1,3,2} area: area2 hole_collider: wall81_hole
+
+[hole]
+key: wall82 model: wallV10RHole.obj position: {20,2.7,-24.9} scale: {5,3,1} area: area2 hole_collider: wall82_hole
+
+[hole]
+key: wall74 model: wallV10RHole.obj position: {-34,2.7,5} scale: {5,3,1} area: area2 hole_collider: wall74_hole
+
+[wall]
+key: wall16d model: wallV10R.obj position: {-10,2.7,15} scale: {5,3,1} area: area2
+
+[wall]
+key: wall17c model: wallV10R.obj position: {-15,2.7,5} scale: {5,3,1} area: area2
+
+[wall]
+key: wall23 model: wallV10.obj position: {-15.2,2.7,4.1} scale: {1,3,1} area: area2
+
+[wall]
+key: wall24 model: wallV10.obj position: {-24.1,2.7,0} scale: {1,3,5.1} area: area2
+
+[wall]
+key: wall25 model: wallV10.obj position: {-15.2,2.7,12.5} scale: {1,3,7.5} area: area2
+
+[wall]
+key: wall47 model: wallV10R.obj position: {-0.3,2.7,30} scale: {15.2,3,1} area: area2
+
+[wall]
+key: wall48 model: wallV10R.obj position: {-5.3,2.7,40} scale: {10.1,3,1} area: area2
+
+[wall]
+key: wall50 model: wallV10.obj position: {14.8,2.7,22.7} scale: {1,3,7.2} area: world
+
+[wall]
+key: wall51 model: wallV10.obj position: {4.8,2.7,45} scale: {1,3,5.1} area: area2
+
+[wall]
+key: wall52 model: wallV10.obj position: {4.5,2.7,23} scale: {1,3,7} area: area2
+
+[wall]
+key: wall53 model: wallV10.obj position: {-15.6,2.7,55} scale: {1,3,7} area: area2
+
+[wall]
+key: wall54 model: wallV10.obj position: {-5.4,2.7,45} scale: {1,3,5} area: area2
+
+[wall]
+key: wall55 model: wallV10.obj position: {-25.4,2.7,6.4} scale: {1,3,1} area: area2
+
+[wall]
+key: wall56 model: wallV10.obj position: {-25.4,2.7,23} scale: {1,3,8} area: area2
+
+[wall]
+key: wall57 model: wallV10.obj position: {-25.4,2.7,39} scale: {1,3,1} area: area2
+
+[wall]
+key: wall58 model: wallV10.obj position: {-25.4,2.7,49} scale: {1,3,3} area: area2
+
+[wall]
+key: wall59 model: wallV10.obj position: {-25.4,2.7,63} scale: {1,3,5} area: area2
+
+[wall]
+key: wall59a model: wallV10.obj position: {14.5,-3.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59b model: wallV10.obj position: {4.5,-3.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59c model: wallV10.obj position: {14.5,-9.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59d model: wallV10.obj position: {4.5,-9.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59e model: wallV10.obj position: {14.5,-15.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59f model: wallV10.obj position: {4.5,-15.3,23} scale: {1,3,7.5} area: world
+
+[wall]
+key: wall59g model: wallV10R.obj position: {9.5,-3.3,30} scale: {5,3,1} area: world
+
+[wall]
+key: wall59i model: wallV10R.obj position: {9.5,-9.3,30} scale: {5,3,1} area: world
+
+[wall]
+key: wall59j model: wallV10R.obj position: {9.5,-9.3,16} scale: {5,3,1} area: world
+
+[wall]
+key: wall59k model: wallV10R.obj position: {9.5,-15.3,30} scale: {5,3,1} area: world
+
+[wall]
+key: wall59l model: wallV10R.obj position: {9.5,-15.3,16} scale: {5,3,1} area: world
+
+[wall]
+key: wall60 model: wallV10.obj position: {-32.4,2.7,48} scale: {1,3,10} area: area2
+
+[wall]
+key: wall61 model: wallV10.obj position: {-40,2.7,44} scale: {1,3,6} area: area2
+
+[wall]
+key: wall62 model: wallV10.obj position: {-47,2.7,52} scale: {1,3,6} area: area2
+
+[wall]
+key: wall64 model: wallV10R.obj position: {-40,2.7,38} scale: {15,3,1} area: area2
+
+[wall]
+key: wall65 model: wallV10R.obj position: {-40,2.7,68} scale: {15,3,1} area: area2
+
+[wall]
+key: wall66 model: wallV10R.obj position: {-40,2.7,58} scale: {7,3,1} area: area2
+
+[wall]
+key: wall69 model: wallV10.obj position: {-25,2.7,75} scale: {1,3,7} area: area2
+
+[wall]
+key: wall73 model: wallV10R.obj position: {-10.7,2.7,62} scale: {5.3,3,1} area: area2
+
+[wall]
+key: wall75 model: wallV10R.obj position: {-35.7,2.7,15} scale: {10,3,1} area: area2
+
+[wall]
+key: wall95 model: wallV10R.obj position: {-30.5,2.7,28} scale: {5,3,1} area: area2
+
+[wall]
+key: wall96 model: wallV10.obj position: {-34.5,2.7,33} scale: {1,3,5} area: area2
+
+[wall]
+key: wall97 model: wallV10R.obj position: {-10,2.7,50} scale: {5,3,1} area: area2
+
+[wall]
+key: wall98 model: wallV10.obj position: {-15.6,2.7,44.4} scale: {1,3,5} area: area2
+
+[wall]
+key: wall18c model: wallV10R.obj position: {-10,2.7,-5} scale: {5,3,1} area: area3
+
+[wall]
+key: wall18d model: wallV10R.obj position: {-20,2.7,-5} scale: {5,3,1} area: area3
+
+[wall]
+key: wall20 model: wallV10R.obj position: {-1,2.7,-24.9} scale: {1,3,1} area: area3
+
+[wall]
+key: wall22 model: wallV10.obj position: {-15.2,2.7,-4.1} scale: {1,3,1} area: area3
+
+[wall]
+key: wall76 model: wallV10R.obj position: {-35.7,2.7,-15} scale: {10,3,1} area: area3
+
+[wall]
+key: wall77 model: wallV10.obj position: {-25.5,2.7,-5} scale: {1,3,10} area: area3
+
+[wall]
+key: wall1 model: wallV10R.obj position: {0,2.7,-45} scale: {50,3,1} area: area4
+
+[wall]
+key: wall3 model: wallV10.obj position: {-55,2.7,10} scale: {1,3,60} area: world
+
+[wall]
+key: wall4g model: wallV10.obj position: {50,2.7,-5} scale: {1,3,5} area: area4
+
+[wall]
+key: wall4h model: wallV10.obj position: {50,2.7,-15} scale: {1,3,5} area: area4
+
+[wall]
+key: wall9 model: wallV10R.obj position: {36.9,2.7,-5.2} scale: {2,3,1} area: area4
+
+[wall]
+key: wall11 model: wallV10R.obj position: {47.9,2.7,-5.2} scale: {2,3,1} area: area4
+
+[wall]
+key: wall13 model: wallV10R.obj position: {45,2.7,-15} scale: {5,3,1} area: area4
+
+[wall]
+key: wall13b model: wallV10R.obj position: {35,2.7,-15} scale: {5,3,1} area: area4
+
+[wall]
+key: wall13c model: wallV10R.obj position: {28,2.7,-15} scale: {2.5,3,1} area: area4
+
+[wall]
+key: wall15 model: wallV10.obj position: {24.8,2.7,-10} scale: {1,3,5} area: area4
+
+[wall]
+key: wall17d model: wallV10R.obj position: {-25,2.7,5} scale: {5,3,1} area: world
+
+[wall]
+key: wall18 model: wallV10R.obj position: {10,2.7,-5} scale: {5,3,1} area: area4
+
+[wall]
+key: wall18b model: wallV10R.obj position: {0,2.7,-5} scale: {5,3,1} area: area4
+
+[wall]
+key: wall19 model: wallV10R.obj position: {10,2.7,-24.9} scale: {5,3,1} area: area4
+
+[wall]
+key: wall21 model: wallV10R.obj position: {11,2.7,-45} scale: {14,3,1} area: area4
+
+[wall]
+key: wall26 model: wallV10.obj position: {24.8,2.7,-20} scale: {1,3,5} area: area4
+
+[wall]
+key: wall26b model: wallV10.obj position: {24.8,2.7,-30} scale: {1,3,5} area: area4
+
+[wall]
+key: wall26c model: wallV10.obj position: {24.8,2.7,-40} scale: {1,3,5} area: area4
+
+[wall]
+key: wall27 model: wallV10.obj position: {0,2.7,-10} scale: {1,3,5} area: area4
+
+[wall]
+key: wall27b model: wallV10.obj position: {0,2.7,-20} scale: {1,3,5} area: area4
+
+[wall]
+key: wall27c model: wallV10.obj position: {0,2.7,-30} scale: {1,3,5} area: area4
+
+[wall]
+key: wall27d model: wallV10.obj position: {0,2.7,-40} scale: {1,3,5} area: area4
+
+[wall]
+key: wall29 model: wallV10.obj position: {10.1,2.7,-4.1} scale: {1,3,1} area: area4
+
+[wall]
+key: wall30 model: wallV10.obj position: {0,2.7,4.1} scale: {1,3,1} area: area4
+
+[wall]
+key: wall31 model: wallV10.obj position: {0,2.7,-4.1} scale: {1,3,1} area: area4
+
+[wall]
+key: wall78 model: wallV10.obj position: {-45,2.7,0} scale: {1,3,15} area: world
+
+[wall]
+key: wall32 model: wallV10R.obj position: {-19.7,-3.5,-5} scale: {4.5,3,1} area: underground
+
+[wall]
+key: wall33 model: wallV10.obj position: {-24.1,-3.5,0} scale: {1,3,5} area: underground
+
+[wall]
+key: wall34 model: wallV10R.obj position: {-19.7,-3.5,5} scale: {4.5,3,1} area: underground
+
+[wall]
+key: wall35 model: wallV10.obj position: {-15.3,-3.5,-16} scale: {1,3,11} area: underground
+
+[wall]
+key: wall36 model: wallV10.obj position: {-15.3,-3.5,9} scale: {1,3,6} area: underground
+
+[wall]
+key: wall37 model: wallV10.obj position: {-5.1,-3.5,-15} scale: {1,3,20} area: underground
+
+[wall]
+key: wall38 model: wallV10R.obj position: {-15.2,-3.5,-35} scale: {10,3,1} area: underground
+
+[wall]
+key: wall39 model: wallV10R.obj position: {-20.2,-3.5,-27} scale: {5,3,1} area: underground
+
+[wall]
+key: wall40 model: wallV10R.obj position: {-0.2,-3.5,15} scale: {15,3,1} area: underground
+
+[wall]
+key: wall42 model: wallV10.obj position: {-25.1,-3.5,-31} scale: {1,3,3.9} area: underground
+
+[wall]
+key: wall83 model: wallV10R.obj position: {0,-3.5,5.2} scale: {5,3,1} area: world
+
+[wall]
+key: wall86 model: wallV10R.obj position: {25,-3.5,-12.8} scale: {3.3,3,1} area: underground
+
+[wall]
+key: wall87 model: wallV10R.obj position: {25,-3.5,-1.5} scale: {3.3,3,1} area: underground
+
+[wall]
+key: wall88 model: wallV10.obj position: {28.5,-3.5,-7} scale: {1,3,5.5} area: underground
+
+[wall]
+key: wall89 model: wallV10.obj position: {21.5,-3.5,-7} scale: {1,3,5.5} area: underground
+
+[wall]
+key: wall104 model: wallV10R.obj position: {23,-3.5,-35} scale: {30,3,1} area: underground
+
+[wall]
+key: wall105 model: wallV10.obj position: {50,-3.5,-2} scale: {1,3,35} area: underground
+
+[wall]
+key: wall106 model: wallV10R.obj position: {15,-3.5,6} scale: {3,3,1} area: underground
+
+[wall]
+key: wall90 model: wallV10R.obj position: {45,-3.5,33} scale: {10,3,1} area: underground
+
+[wall]
+key: wall91 model: wallV10R.obj position: {40,-3.5,43} scale: {15,3,1} area: underground
+
+[wall]
+key: wall92 model: wallV10.obj position: {35,-3.5,23} scale: {1,3,10.5} area: underground
+
+[wall]
+key: wall93 model: wallV10.obj position: {25.5,-3.5,28.5} scale: {1,3,16} area: underground
+
+[wall]
+key: wall94 model: wallV10.obj position: {54,-3.5,38} scale: {1,3,5.5} area: underground
+
+[hole]
+key: wall85 model: wallV10Hole.obj position: {12.5,-3.5,10} scale: {1,3,5} area: underground hole_collider: wall85_hole
+
