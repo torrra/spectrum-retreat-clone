@@ -54,7 +54,7 @@ void Game::Menu::UpdateStartMenu(Game& game)
 
 	// Push ID to allow labels to be reused for multiple menus
 	ImGui::PushID(TITLE_SCREEN);
-	
+
 	// Set UI window properties (position, size & transparency) relative to screen size
 	ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
 	ImGui::SetNextWindowSize(ImVec2(m_screenSize.m_x, m_screenSize.m_y));
@@ -67,20 +67,20 @@ void Game::Menu::UpdateStartMenu(Game& game)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoScrollbar);
-	
+
 	// Get pointer for background window (opengl window)
 	ImDrawList* bg = ImGui::GetBackgroundDrawList();
 	bg->AddImage((void*) static_cast<intptr_t>(m_background), ImVec2(0, 0), ImVec2(m_screenSize.m_x, m_screenSize.m_y));
 
 	// Set font to title font
 	ImGui::PushFont(UIFonts::titleFont);
-	
+
 	// Set vertical spacing to be vertically centered
 	ImGui::SetCursorPosY( m_screenSize.m_y * 0.5f);
 
 	// Write title text
 	ImGui::Text("Spectrum Asylum");
-	
+
 	// Stop using title font
 	ImGui::PopFont();
 
@@ -92,14 +92,14 @@ void Game::Menu::UpdateStartMenu(Game& game)
 
 	// Set vertical spacing between last & next component
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + m_screenSize.m_y * coefficient);
-	
+
 	// Draw play button
 	if (ImGui::Button("Play"))
 		PlayButton(true, game);
 
 	// Set vertical spacing between last & next component
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY() + m_screenSize.m_y * coefficient);
-	
+
 	// Draw quit button
 	if (ImGui::Button("Quit"))
 		QuitButton(true, game.m_window.m_windowPtr);
@@ -198,7 +198,7 @@ void Game::Menu::UpdateEndMenu(Game& game)
 {
 	// Update to current screen size
 	m_screenSize = game.m_window.GetWindowSize();
-	
+
 	// Assign button size relative to screen size
 	ImVec2 buttonSize = {m_screenSize.m_x * 0.1f, m_screenSize.m_y * 0.1f};
 
@@ -224,17 +224,17 @@ void Game::Menu::UpdateEndMenu(Game& game)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoScrollbar);
-	
+
 	// Set font to title font
 	ImGui::PushFont(UIFonts::titleFont);
-	
+
 	// Store title text & width of string
 	const char title[] = "Level Complete";
 	float titleWidth = ImGui::CalcTextSize(title).x;
 
 	// Set position in UI window
 	ImGui::SetCursorPos(ImVec2((m_screenSize.m_x - titleWidth) * 0.5f, m_screenSize.m_y * 0.33f));
-	
+
 	// Write text in UI
 	ImGui::Text(title);
 
@@ -254,7 +254,7 @@ void Game::Menu::UpdateEndMenu(Game& game)
 	// Draw restart button
 	if (ImGui::Button(restartText, buttonSize))
 		RestartButton(true, game);
-	
+
 	// Set next UI component to same Y position
 	ImGui::SameLine();
 
@@ -275,7 +275,7 @@ void Game::Menu::UpdateEndMenu(Game& game)
 
 void Game::Menu::DisplayMessage(std::string const& message, int id)
 {
-	// Store offset for window size 
+	// Store offset for window size
 	constexpr float offset = 10.0f;
 
 	// Push ID to allow to reuse same labels
@@ -324,7 +324,10 @@ void Game::Menu::PlayButton(bool value, Game& game) const
 {
 	if (value)
 	{
+
+#ifndef NDEBUG
 		std::cout << "Starting game...\n";
+#endif
 
 		// Set cursor position to last cursor position to prevent camera rotation once game resumes
 		glfwSetCursorPos(game.m_window.m_windowPtr,
@@ -342,7 +345,7 @@ void Game::Menu::PlayButton(bool value, Game& game) const
 
 		// Update current state
 		game.m_currentState = IN_GAME;
-		
+
 		// Delete titlescreen background
 		glDeleteTextures(1, &m_background);
 	}

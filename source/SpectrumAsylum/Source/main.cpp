@@ -30,6 +30,10 @@ int main(void)
 	// Check for memory leaks
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	{
+		//std::ofstream log("logs.txt", std::ios::out | std::ios::binary);
+
+		freopen("logs.txt", "w", stdout);
+
 		// Call game constructor
 		Game game;
 
