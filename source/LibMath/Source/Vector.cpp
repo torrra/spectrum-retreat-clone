@@ -409,7 +409,15 @@ namespace LibMath
 		os << rhs.string();
 
 		return os;
-	}// cout << Vector3{ .5, 1.5, -2.5 }				// add a vector string representation to an output stream
+	}
+	std::istream& operator>>(std::istream& is, Vector3& rhs)
+	{
+		char discard;
+
+		is >> discard >> rhs.m_x >> discard >> rhs.m_y >> discard >> rhs.m_z >> discard;
+		return is;
+	}
+	// cout << Vector3{ .5, 1.5, -2.5 }				// add a vector string representation to an output stream
 
 
 
