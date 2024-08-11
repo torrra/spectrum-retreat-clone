@@ -5,6 +5,7 @@
 
 // Game header
 #include "Game.h"
+#include "LibMath/Vector.h"
 #include "LevelOne.h"
 
 bool Game::m_doorHit = false;
@@ -37,26 +38,23 @@ Game::~Game(void)
 * Create *
 \********/
 // Create mesh wall
-Mesh* Game::CreateWall(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey)
+Mesh* Game::CreateBlock(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* materialKey, const char* areaKey)
 {
-	m_sceneFile << "[wall]\nkey: " << key << " model: " << modelString << " position: " << pos << " scale: " <<
-	scale << " area: " << areaKey << "\n\n";
-
-	if (m_sceneFile.eof() || m_sceneFile.bad() || m_sceneFile.fail())
-		__debugbreak();
+	m_sceneFile << "[block]\nkey: " << key << " model: " << modelString << " position: " << pos << " scale: " <<
+	scale << " material: " << materialKey << " area: " << areaKey << "\n\n";
 
 	// Add wall mesh to the current level
-	Mesh*	wall = m_currentLevel.m_scene.AddChild<Mesh>(key, model);
+	Mesh*	block = m_currentLevel.m_scene.AddChild<Mesh>(key, model);
 
 	// Link the wall to the scene node
-	wall->LinkToNode(m_currentLevel.m_scene.GetNode(key));
+	block->LinkToNode(m_currentLevel.m_scene.GetNode(key));
 
 	// Set the position of the wall
-	wall->Translate(pos);
+	block->Translate(pos);
 	// Set the size of the wall
-	wall->Scale(scale);
+	block->Scale(scale);
 	// Set the material of th wall
-	wall->m_material = mat;
+	block->m_material = mat;
 
 	// Add a collider for the wall
 	m_currentLevel.m_colliders.AddCollider<BoxBV>(areaKey, key);
@@ -64,14 +62,14 @@ Mesh* Game::CreateWall(const std::string& key, Model* model, const char* modelSt
 	// Link to the scene node wall colliders
 	m_currentLevel.m_colliders.LinkToNode(m_currentLevel.m_scene, key, key);
 
-	return wall;
+	return block;
 }
 
 // Create mesh wall with hole
-Mesh* Game::CreateWallWithHole(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey)
+Mesh* Game::CreateWallWithHole(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* materialKey, const char* areaKey)
 {
-	m_sceneFile << "[hole]\nkey: " << key << " model: " << modelString << " position: " << pos << " scale: " <<
-	scale << " area: " << areaKey << " hole_collider: ";
+	m_sceneFile << "[hole]\nkey: " << key << " model: " << modelString << " position: " << pos <<
+	" materialKey: " << materialKey << " scale: " << scale << " area: " << areaKey << " hole_collider: ";
 
 	// Add wall mesh to the current level
 	Mesh*	wall = m_currentLevel.m_scene.AddChild<Mesh>(key, model);
@@ -103,28 +101,31 @@ Mesh* Game::CreateWallWithHole(const std::string& key, Model* model, const char*
 }
 
 // Create floor mesh
-Mesh* Game::CreateFloor(const std::string& key, Model* model, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey)
+Mesh* Game::CreateFloor(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey)
 {
+	m_sceneFile << "[block]\nkey: " << key << " model: " << modelString << " position: " << pos << " scale: " <<
+	scale << " area: " << areaKey << "\n\n";
+
 	// Add wall mesh to the current level
-	Mesh*	floor = m_currentLevel.m_scene.AddChild<Mesh>(key, model);
+	Mesh*	block = m_currentLevel.m_scene.AddChild<Mesh>(key, model);
 
 	// Link the wall to the scene node
-	floor->LinkToNode(m_currentLevel.m_scene.GetNode(key));
+	block->LinkToNode(m_currentLevel.m_scene.GetNode(key));
 
 	// Set the position of the wall
-	floor->Translate(pos);
+	block->Translate(pos);
 	// Set the size of the wall
-	floor->Scale(scale);
+	block->Scale(scale);
 	// Set the material of th wall
-	floor->m_material = mat;
+	block->m_material = mat;
 
 	// Add a collider for the wall
 	m_currentLevel.m_colliders.AddCollider<BoxBV>(areaKey, key);
 
-	// Link to the scene node wall collider's
+	// Link to the scene node wall colliders
 	m_currentLevel.m_colliders.LinkToNode(m_currentLevel.m_scene, key, key);
 
-	return floor;
+	return block;
 }
 
 // Create point light
@@ -243,7 +244,7 @@ Mesh* Game::CreateCubeHolder(const std::string& key, Model* model, const LibMath
 	// Set a size to the cube holder
 	cubeHolder->Scale({1.5f, 0.66f, 1.5f});
 	// Set a material to the cube holder
-	cubeHolder->m_material = assets.Get<Material>("dark gray");
+	cubeHolder->m_material = assets.Get<Material>("dark");
 
 	return cubeHolder;
 }
@@ -380,4 +381,77 @@ void Game::Update()
 
 	// Update the screen
 	m_window.UpdateWindow();
+}
+
+void Game::ReadSceneFile()
+{
+	std::string		  currentObject;
+
+	m_sceneBuf << m_sceneFile.rdbuf();
+	m_sceneBuf >> currentObject;
+
+	while (currentObject.size())
+	{
+		//m_sceneFile >> currentObject;
+
+		switch (currentObject[1])
+		{
+		case 'b':
+			ReadBlock();
+			break;
+
+		default: break;
+		}
+
+		currentObject = std::string();
+		m_sceneBuf >> currentObject;
+	}
+}
+
+void Game::ReadBlock()
+{
+	std::string			 value1, value2, type;
+	std::stringstream    sstream;
+	LibMath::Vector3	 vector;
+
+	m_sceneBuf >> type >> value1 >> type >> value2;
+
+
+	Model*		model = m_currentLevel.m_assets.Get<Model>(value2);
+
+	// Add wall mesh to the current level
+	Mesh* block = m_currentLevel.m_scene.AddChild<Mesh>(value1, model);
+
+	// Link the wall to the scene node
+	block->LinkToNode(m_currentLevel.m_scene.GetNode(value1));
+
+	m_sceneBuf >> type >> value2;
+	sstream = std::stringstream(value2);
+	sstream >> vector;
+
+	// Set the position of the wall
+	block->Translate(vector);
+
+	// Set the size of the wall
+	m_sceneBuf >> type >> value2;
+	sstream = std::stringstream(value2);
+	sstream >> vector;
+
+	block->Scale(vector);
+
+	// Set the material of th wall
+	m_sceneBuf >> type >> value2;
+
+	Material* material = m_currentLevel.m_assets.Get<Material>(value2);
+
+	block->m_material = material;
+
+	// Add a collider for the wall
+	m_sceneBuf >> type >> value2;
+
+	m_currentLevel.m_colliders.AddCollider<BoxBV>(value2, value1);
+
+	// Link to the scene node wall colliders
+	m_currentLevel.m_colliders.LinkToNode(m_currentLevel.m_scene, value1, value1);
+
 }

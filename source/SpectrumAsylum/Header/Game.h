@@ -40,13 +40,13 @@ public:
 
 	// Create functions
 	// Create wall mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
-	Mesh*	CreateWall(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
+	Mesh*	CreateBlock(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* materialKey, const char* areaKey = "world");
 
 	// Create wall with a hole mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
-	Mesh*	CreateWallWithHole(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
+	Mesh*	CreateWallWithHole(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* materialKey, const char* areaKey = "world");
 
 	// Create floor mesh with a key, a model, a position, a scale, a material, and an area for the collider by default to world
-	Mesh*	CreateFloor(const std::string& key, Model* model, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
+	Mesh*	CreateFloor(const std::string& key, Model* model, const char* modelString, const LibMath::Vector3& pos, const LibMath::Vector3& scale, Material* mat, const char* areaKey = "world");
 
 	// Create all light for the level with a key, a position, a material for the mesh, material for the edge*/
 	PointLight*	CreateLevelLight(const std::string& key, const LibMath::Vector3& pos, Material* meshMat, Material* edgeMat);
@@ -68,6 +68,10 @@ public:
 
 	// Update switch between the different game states
 	void Update();
+
+	void ReadSceneFile();
+
+	void ReadBlock();
 
 	// Nested class Menu
 	class Menu
@@ -115,13 +119,14 @@ public:
 
 	// Variables
 
-	std::ofstream			m_sceneFile;
-	irrklang::ISoundEngine*	m_soundEngine	= nullptr;
+	std::fstream			m_sceneFile;
+	std::stringstream       m_sceneBuf;
 	Level					m_currentLevel;
 	Application				m_window;
 	Timer					m_timer;
 	Menu					m_menu;
 	GameState				m_currentState	= TITLE_SCREEN;
+	irrklang::ISoundEngine*	m_soundEngine	= nullptr;
 	static bool				m_doorHit;
 	static bool				m_gameOver;
 
