@@ -54,9 +54,12 @@ ColorBlock::~ColorBlock(void)
 ColBoxBV* ColorBlock::CreateCollider(BVHierarchy& colliders, const char* key, const char* parentKey)
 {
 	// If collider of this key already exists then return nullptr
-	if (m_collider) 
+	if (m_collider)
 	{
+
+#ifndef NDEBUG
 		std::cout << "Collider already exists for this object\n";
+#endif
 		return nullptr;
 	}
 
@@ -68,7 +71,7 @@ ColBoxBV* ColorBlock::CreateCollider(BVHierarchy& colliders, const char* key, co
 		m_collider = colliders.AddCollider<ColBoxBV>(std::string(key), m_mesh->m_position, m_mesh->m_scale);
 
 	// Apply the color of the block to the collider
-	m_collider->m_color = &m_color; 
+	m_collider->m_color = &m_color;
 
 	return m_collider;
 
@@ -79,12 +82,14 @@ ColBoxBV* ColorBlock::CreateCollider(BVHierarchy& colliders, const char* key, co
 Mesh* ColorBlock::CreateMesh(Graph<SceneNode>& gameObjects, const char* colorBoxKey, const char* meshKey, Model* model)
 {
 	// If the cube already exist then there is already a mesh
-	if (m_mesh) 
+	if (m_mesh)
 	{
+#ifndef NDEBUG
 		std::cout << "Mesh already exists for this object\n";
-		
+#endif
+
 		// So return nullptr
-		return nullptr; 
+		return nullptr;
 	}
 
 	// Add the child to the graph scene
@@ -132,9 +137,11 @@ void ColorBlock::SetLight(Graph<SceneNode>& gameObjects, const char* lightKey)
 void ColorBlock::SetPosition(const LibMath::Vector3& pos)
 {
 	// Error if the mesh does not exist
-	if (!m_mesh) 
+	if (!m_mesh)
 	{
+#ifndef NDEBUG
 		std::cout << "Unable to set a position without an existing mesh\n";
+#endif
 		return;
 	}
 
@@ -147,7 +154,7 @@ void ColorBlock::SetPosition(const LibMath::Vector3& pos)
 void ColorBlock::SetMovement(float speed, float length)
 {
 	// If movement of a block exist
-	if (m_movement) 
+	if (m_movement)
 	{
 		// Then set the speed
 		m_movement->m_speed = speed;
@@ -156,7 +163,7 @@ void ColorBlock::SetMovement(float speed, float length)
 		m_movement->m_pathLength = length;
 	}
 	// If mesh exist but movement not initialize
-	else if (m_mesh) 
+	else if (m_mesh)
 	{
 		// Then create a movement
 		m_movement = new BlockMovement(speed, length, m_mesh);
@@ -168,12 +175,12 @@ void ColorBlock::SetMovement(float speed, float length)
 void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION directions[NUM_OF_DIR])
 {
 	// If movement of a block exist
-	if (m_movement) 
+	if (m_movement)
 	{
 		// Then set the speed
-		m_movement->m_speed = speed; 
+		m_movement->m_speed = speed;
 		// Then set the length of the movement
-		m_movement->m_pathLength = length; 
+		m_movement->m_pathLength = length;
 
 		// For each different direction
 		for (int	index = 0; index < NUM_OF_DIR; ++index)
@@ -184,7 +191,7 @@ void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION directio
 	}
 
 	// If mesh exist but movement not initialize
-	else if (m_mesh) 
+	else if (m_mesh)
 	{
 		// Then create a movement
 		m_movement = new BlockMovement(speed, length, directions, m_mesh);
@@ -196,7 +203,7 @@ void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION directio
 void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION dir1, BLOCK_DIRECTION dir2)
 {
 	// If movement of a block exist
-	if (m_movement) 
+	if (m_movement)
 	{
 		// Create an array of two enum to set the two directions
 		BLOCK_DIRECTION	directions[2] = { dir1, dir2 };
@@ -209,12 +216,12 @@ void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION dir1, BL
 		}
 
 		// Then set the speed
-		m_movement->m_speed = speed; 
+		m_movement->m_speed = speed;
 		// Then set the length of the movement
-		m_movement->m_pathLength = length; 
+		m_movement->m_pathLength = length;
 	}
 	// If mesh exist but movement not initialize
-	else if (m_mesh) 
+	else if (m_mesh)
 	{
 		// Then create a movement
 		m_movement = new BlockMovement(speed, length, dir1, dir2, m_mesh);
@@ -229,7 +236,7 @@ void ColorBlock::SetMovement(float speed, float length, BLOCK_DIRECTION dir1, BL
 void ColorBlock::UpdateMovement(const float deltaTime)
 {
 	// Break if the movement or the mesh does not exists
-	if (!m_movement || !m_mesh) 
+	if (!m_movement || !m_mesh)
 		return;
 
 	// Create a matrix 4 to apply transformation of mesh
@@ -268,12 +275,12 @@ bool ColorBlock::IsHit(const Ray& ray, Color& playerColor)
 	float	distance;
 
 	// Check the collision
-	bool	collision = ray.Intersect(*m_collider, distance); 
+	bool	collision = ray.Intersect(*m_collider, distance);
 
 	// If there is collision
-	if (collision) 
+	if (collision)
 		// Then change the color of the cube
-		m_color.Swap(playerColor); 
+		m_color.Swap(playerColor);
 
 	return collision;
 }
