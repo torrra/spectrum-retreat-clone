@@ -2,6 +2,12 @@
 
 Spectrum Asylum is a first-person 3D game made from scratch. This project was a school assignment, with the goal of creating a level inspired by [The Spectrum Retreat](https://store.steampowered.com/app/763250/The_Spectrum_Retreat/) in three weeks.
 
+## Table of contents
+* [The Game]()
+* [Libraries](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#libraries)
+* [Contributors](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#contributors)
+* [How to build](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#how-to-build)
+
 ## Libraries
 
 Math: [mathlib](https://github.com/torrra/mathlib) (legacy version)  
