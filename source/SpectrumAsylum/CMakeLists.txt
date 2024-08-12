@@ -6,8 +6,11 @@ cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 # Get directory name to set lib name
 get_filename_component(TARGET_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
+# Path for cmake root files
+cmake_path(GET CMAKE_SOURCE_DIR PARENT_PATH PARENT_DIR)
+
 # Get .gitIgnore file
-source_group("Extras" FILES ${CMAKE_SOURCE_DIR}/.gitignore)
+source_group("Extras" FILES ${PARENT_DIR}/.gitignore)
 
 # Get shader files
 file(GLOB_RECURSE SHADERS
@@ -52,7 +55,7 @@ set(TARGET_FILES ${TARGET_HEADER_FILES} ${TARGET_SOURCE_FILES} ${SHADERS} ${LEVE
 add_executable(${TARGET_NAME})
 
 # Set target source files
-target_sources(${TARGET_NAME} PRIVATE ${TARGET_FILES} ${CMAKE_SOURCE_DIR}/.gitignore)
+target_sources(${TARGET_NAME} PRIVATE ${TARGET_FILES} ${PARENT_DIR}/.gitignore)
 
 # Get game header files
 target_include_directories(${TARGET_NAME}
