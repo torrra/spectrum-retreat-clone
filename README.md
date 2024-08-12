@@ -88,6 +88,7 @@ Once Visual Studio has finished starting up, you can select Debug or Release and
 
 ### Features in progress
 * Reading level from external scene file instead of manual function calls for each in-game object
+* Fixing issue requiring to import same asset for AABB compatibility if it neeeds to be rotated
 
 ### Future ideas
 * Replacing legacy mathlib with newer version
