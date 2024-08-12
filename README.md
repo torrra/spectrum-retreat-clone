@@ -3,11 +3,11 @@
 Spectrum Asylum is a first-person 3D game made from scratch. This project was a school assignment, with the goal of creating a level inspired by [The Spectrum Retreat](https://store.steampowered.com/app/763250/The_Spectrum_Retreat/) in three weeks.
 
 ## Table of contents
-* [The Game]()
+* [The Game](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#the-game)
 * [Libraries](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#libraries)
 * [Contributors](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#contributors)
 * [How to build](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#how-to-build)
-* [Development]()
+* [Development](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#development)
 
 ## The game
 
@@ -86,3 +86,9 @@ Once Visual Studio has finished starting up, you can select Debug or Release and
 
 ## Development
 
+### Features in progress
+* Reading level from external scene file instead of manual function calls for each in-game object
+
+### Future ideas
+* Replacing legacy mathlib with nhttps://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#developmentewer version
+* Replacing our old graphics libraries with our newer in-development [Ion Engine runtime](https://github.com/TheIonProject/IonEngine)
