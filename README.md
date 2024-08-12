@@ -8,6 +8,24 @@ Spectrum Asylum is a first-person 3D game made from scratch. This project was a 
 * [Contributors](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#contributors)
 * [How to build](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#how-to-build)
 
+## The game
+
+### Objective
+
+You must swap colors with surrounding cubes to pass through corresponding doors. The device shown in the bottom-right corner displays your current color.  
+<br>
+![First in-game cube and its door](https://github.com/torrra/spectrum-retreat-clone/blob/main/documents/Screen/FirstDoor.png)
+
+### Controls
+
+| Key | Action |
+| --- | --- |
+| WASD | move |
+| space | jump |
+| left mouse button | swap color |
+
+<br>
+
 ## Libraries
 
 Math: [mathlib](https://github.com/torrra/mathlib) (legacy version)  
