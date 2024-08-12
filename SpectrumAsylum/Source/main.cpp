@@ -8,6 +8,9 @@
 #endif
 #endif  // _DEBUG
 
+// Disable console
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 // Include project
 #include "Game.h"
 
