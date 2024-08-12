@@ -32,7 +32,7 @@ int main(void)
 	{
 		//std::ofstream log("logs.txt", std::ios::out | std::ios::binary);
 
-		freopen("logs.txt", "w", stdout);
+		(void) freopen("logs.txt", "w", stdout);
 
 		// Call game constructor
 		Game game;
