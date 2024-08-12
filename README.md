@@ -51,7 +51,11 @@ cmake -B build -S .
 
 ### Step 3 : open Visual Studio
 
-After CMake has successfully configured the VS solution, you can open it with your file explorer, or by using `cmake --open .` (or  
-`cmake --open build` if you ran the second CMake command shown in the previous step). Once Visual Studio has finished starting up, you can select Debug or Release and click on 'Local Windows Debugger' to compile everything. The game will start automatically.
+After CMake has successfully configured the VS solution, you can open it with your file explorer, or by using 
+```
+cmake --open .
+``` 
+or ```cmake --open build``` if you ran the second CMake command shown in the previous step.  
+Once Visual Studio has finished starting up, you can select Debug or Release and click on 'Local Windows Debugger' to compile everything. The game will start automatically.
 
 
