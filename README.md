@@ -90,5 +90,5 @@ Once Visual Studio has finished starting up, you can select Debug or Release and
 * Reading level from external scene file instead of manual function calls for each in-game object
 
 ### Future ideas
-* Replacing legacy mathlib with nhttps://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#developmentewer version
+* Replacing legacy mathlib with newer version
 * Replacing our old graphics libraries with our newer in-development [Ion Engine runtime](https://github.com/TheIonProject/IonEngine)
