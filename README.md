@@ -7,6 +7,7 @@ Spectrum Asylum is a first-person 3D game made from scratch. This project was a 
 * [Libraries](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#libraries)
 * [Contributors](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#contributors)
 * [How to build](https://github.com/torrra/spectrum-retreat-clone?tab=readme-ov-file#how-to-build)
+* [Development]()
 
 ## The game
 
@@ -38,7 +39,7 @@ OpenGL loader: [glad](https://glad.dav1d.de/)
 
 ## Contributors
 
-Team lead & main rendering rendering programmer : [Torra](https://github.com/torrra)  
+Team lead & main rendering programmer : [Torra](https://github.com/torrra)  
 Main physics programmer : [MLev29](https://github.com/MLev29)  
 Main gameplay programmer : [MetaXGhost](https://github.com/MetaXGhost)
 
@@ -82,4 +83,6 @@ cmake --open .
 or ```cmake --open build``` if you ran the second CMake command shown in the previous step.  
 Once Visual Studio has finished starting up, you can select Debug or Release and click on 'Local Windows Debugger' to compile everything. The game will start automatically.
 
+
+## Development
 
