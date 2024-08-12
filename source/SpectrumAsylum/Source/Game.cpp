@@ -399,6 +399,9 @@ void Game::ReadSceneFile()
 		case 'b':
 			ReadBlock();
 			break;
+		case 'h':
+			ReadHoledBlock();
+			break;
 
 		default: break;
 		}
@@ -453,5 +456,69 @@ void Game::ReadBlock()
 
 	// Link to the scene node wall colliders
 	m_currentLevel.m_colliders.LinkToNode(m_currentLevel.m_scene, value1, value1);
+
+}
+
+void Game::ReadHoledBlock()
+{
+
+	std::string			 value1, value2, type;
+	std::stringstream    sstream;
+	LibMath::Vector3	 position, scale;
+
+	m_sceneBuf >> type >> value1 >> type >> value2;
+
+	Model* model = m_currentLevel.m_assets.Get<Model>(value2);
+
+	// Add wall mesh to the current level
+	Mesh* wall = m_currentLevel.m_scene.AddChild<Mesh>(value1, model);
+
+	// Link the wall to the scene node
+	wall->LinkToNode(m_currentLevel.m_scene.GetNode(value1));
+
+	m_sceneBuf >> type >> value2;
+	sstream = std::stringstream(value2);
+	sstream >> position;
+
+	// Set the material of th wall
+	m_sceneBuf >> type >> value2;
+
+	Material* material = m_currentLevel.m_assets.Get<Material>(value2);
+
+	m_sceneBuf >> type >> value2;
+	sstream = std::stringstream(value2);
+	sstream >> scale;
+
+	// Set the position of the wall
+	wall->Translate(position);
+	// Set the size of the wall
+	wall->Scale(scale);
+
+
+	// Set the material of th wall
+	wall->m_material = material;
+
+
+	// Set the material of th wall
+	m_sceneBuf >> type >> value2;
+
+	// Create a specific collider for the wall with hole
+	PhysicsLib::HoledCollider* collider =
+	m_currentLevel.m_colliders.AddCollider<PhysicsLib::HoledCollider>
+	(
+		value2, value1, position, scale, PhysicsLib::HOLED
+	);
+
+	// Link to the scene node wall colliders
+	m_currentLevel.m_colliders.LinkToNode(m_currentLevel.m_scene, value1, value1);
+	// Add to the key the "hole" to complete the key code
+	std::string	holeKey = value1 + "_hole";
+
+
+	// Add a collider for the wall
+	collider->m_hole = m_currentLevel.m_colliders.AddCollider<BoxBV>
+	(
+		value2, holeKey, position, LibMath::Vector3{ 1.f, 1.f, 1.f }, PhysicsLib::IGNORE
+	);
 
 }

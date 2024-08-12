@@ -73,6 +73,8 @@ public:
 
 	void ReadBlock();
 
+	void ReadHoledBlock();
+
 	// Nested class Menu
 	class Menu
 	{
