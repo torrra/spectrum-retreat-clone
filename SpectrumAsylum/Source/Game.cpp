@@ -385,9 +385,14 @@ void Game::Update()
 
 void Game::ReadSceneFile()
 {
+
+	m_sceneBuf = std::stringstream();
+
+	m_sceneFile.open("scenes/levelOne.level", std::ios::in | std::ios::binary);
+	m_sceneBuf << m_sceneFile.rdbuf();
+
 	std::string		  currentObject;
 
-	m_sceneBuf << m_sceneFile.rdbuf();
 	m_sceneBuf >> currentObject;
 
 	while (currentObject.size())
